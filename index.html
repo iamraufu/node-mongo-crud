@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Vegan Soup</title>
+</head>
+
+<body>
+    <h1>Organic Vegan Soup</h1>
+
+    <form action="/addProduct" method="post">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="price" placeholder="price">
+        <input type="text" name="quantity" placeholder="quantity">
+        <button type="submit">Add Product</button>
+    </form>
+    <div id="products">
+
+    </div>
+    <script>
+        fetch('/products')
+            .then(res => res.json())
+            .then(products => {
+                const container = document.getElementById('products');
+                products.forEach(pd => {
+                    const p = document.createElement('p')
+                    p.innerHTML = `Soup: <b>${pd.name}</b> Price: <u>${pd.price}</u> Quantity: <i>${pd.quantity}</i>`
+                    container.appendChild(p)
+                })
+            })
+        loadProducts();
+    </script>
+</body>
+
+</html>

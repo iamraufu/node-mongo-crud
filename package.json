@@ -1,0 +1,29 @@
+{
+    "name": "mongo-crud",
+    "version": "1.0.0",
+    "description": "Create Read Update Delete operations using cross-platform NoSQL database",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iamraufu/node-mongo-crud.git"
+    },
+    "author": "Raufu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/iamraufu/node-mongo-crud/issues"
+    },
+    "homepage": "https://github.com/iamraufu/node-mongo-crud#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongodb": "^3.6.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
