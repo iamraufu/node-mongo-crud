@@ -17,21 +17,51 @@
         <input type="text" name="quantity" placeholder="quantity">
         <button type="submit">Add Product</button>
     </form>
-    <div id="products">
-
-    </div>
+    <div id="products"></div>
+    <div id="update"></div>
     <script>
-        fetch('/products')
-            .then(res => res.json())
-            .then(products => {
-                const container = document.getElementById('products');
-                products.forEach(pd => {
-                    const p = document.createElement('p')
-                    p.innerHTML = `Soup: <b>${pd.name}</b> Price: <u>${pd.price}</u> Quantity: <i>${pd.quantity}</i>`
-                    container.appendChild(p)
+        function addProduct() {
+            fetch('/products')
+                .then(res => res.json())
+                .then(products => {
+                    const container = document.getElementById('products');
+                    products.forEach(pd => {
+                        const p = document.createElement('p')
+                        p.innerHTML = `Soup: <b>${pd.name}</b> Price: <u>${pd.price}</u> Quantity: <i>${pd.quantity}</i>
+                        <button onclick="updateProduct('${pd._id}')">Update Soup</button>
+                        <button onclick="deleteProduct('${pd._id}')">Delete Product</button>
+                        `
+                        container.appendChild(p)
+                    })
                 })
-            })
-        loadProducts();
+        }
+        addProduct();
+
+        function updateProduct(id) {
+            fetch(`product/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('update').innerHTML = `
+                    <h3>Update ${data._id}</h3>
+                    Price: <input type="text" value="${data.price}" id="price">
+                    <br>
+                    <br>
+                    Quantity: <input type="text" value="${data.quantity}" id="quantity">
+                    <button >Submit Updated Soup</button>
+                    `
+
+                })
+        }
+
+        function deleteProduct(id) {
+            fetch(`/delete/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(result => {
+                    console.log("DELETED")
+                })
+        }
     </script>
 </body>
 

@@ -1,6 +1,7 @@
 // import password from '.env'
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
@@ -30,12 +31,26 @@ client.connect(err => {
             })
     })
 
+    app.get('/product/:id', (req, res) => {
+        productCollection.find({ _id: ObjectId(req.params.id) })
+            .toArray((err, documents) => {
+                res.send(documents[0]);
+            })
+    })
+
     app.post('/addProduct', (req, res) => {
         const product = req.body;
         productCollection.insertOne(product)
             .then(result => {
                 console.log("Success")
                 res.send("Soup Added Successfully!")
+            })
+    })
+
+    app.delete('/delete/:id', (req, res) => {
+        productCollection.deleteOne({ _id: ObjectId(req.params.id) })
+            .then(result => {
+                console.log(result)
             })
     })
 
